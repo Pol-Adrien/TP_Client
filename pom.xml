@@ -11,12 +11,49 @@
 	<name>TP_Client</name>
 	<url>http://maven.apache.org</url>
 	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-    	<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
+	<parent>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-parent</artifactId>
+  		<version>1.4.0.RELEASE</version>
+  		<relativePath/>
+  	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    
+	    <dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+	</dependencies>
 	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -25,9 +62,11 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<release>8</release>
+					<source>1.8</source>
+          			<target>1.8</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.1</version>
@@ -35,6 +74,13 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+	  			<groupId>
+	  				org.springframework.boot
+	  			</groupId>
+	  			<artifactId>spring-boot-maven-plugin</artifactId>
+	  		</plugin>
 		</plugins>
 	</build>
 </project>
