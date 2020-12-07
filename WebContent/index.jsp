@@ -7,39 +7,46 @@
 <%@ page import="com.dto.Ville"%>
 <head>
 <meta charset="ISO-8859-1">
-<title>Calcul distance entre deux villes</title>
+<title>Villes France</title>
 </head>
 <body>
-
-	<%
-		RestTemplate restTemplate = new RestTemplate();
-		Ville[] listeVilles= restTemplate.getForObject("http://localhost:8181/get", Ville[].class);
-	 	String[] noms = new String[listeVilles.length];
-	 	String[] codeCommune = new String[listeVilles.length];
+	<div>
+		<h2>Calcul de la distance entre deux villes</h2>
+		<%
+			RestTemplate restTemplate = new RestTemplate();
+			Ville[] listeVilles= restTemplate.getForObject("http://localhost:8181/get", Ville[].class);
+		 	String[] noms = new String[listeVilles.length];
+		 	String[] codeCommune = new String[listeVilles.length];
+		
+			HttpSession sess = request.getSession();
+			sess.setAttribute("listeVilles", listeVilles);
+			for (int i = 0; i < listeVilles.length; i++) {
+				noms[i] = listeVilles[i].getNomCommune();
+				codeCommune[i] = listeVilles[i].getCodeCommune();
+			}
+		%>
+		
+		<form action="Distance" method="get">
+			<select name="ville1">
+				<%for(int i = 0; i<noms.length; i++){%> 
+						<option value=<%out.println(codeCommune[i]);%>>
+						<%out.println(noms[i]);%></option>
+		  		<%}%> 
+			</select>
+			<select name="ville2">
+				<%for(int i = 0; i<noms.length; i++){%> 
+						<option value=<%out.println(codeCommune[i]);%>>
+						<%out.println(noms[i]);%></option>
+		  		<%}%> 
+			</select>
+			<button type="submit" name="valider">Valider</button>
+		</form>
+		
+		<h2>Affichage de toutes les villes</h2>
+		<a href="AfficherVilles"> Afficher les villes </a>
+		<br>
 	
-		HttpSession sess = request.getSession();
-		sess.setAttribute("listeVilles", listeVilles);
-		for (int i = 0; i < listeVilles.length; i++) {
-			noms[i] = listeVilles[i].getNomCommune();
-			codeCommune[i] = listeVilles[i].getCodeCommune();
-		}
-	%>
-	
-	<form action="DistanceServlet" method="post">
-		<select name="ville1">
-			<%for(int i = 0; i<noms.length; i++){%> 
-					<option value=<%out.println(codeCommune[i]);%>>
-					<%out.println(noms[i]);%></option>
-	  		<%}%> 
-		</select>
-		<select name="ville2">
-			<%for(int i = 0; i<noms.length; i++){%> 
-					<option value=<%out.println(codeCommune[i]);%>>
-					<%out.println(noms[i]);%></option>
-	  		<%}%> 
-		</select>
-		<input type="submit" name="valider">	
-	</form>
+	</div>
 	
 </body>
 </html>

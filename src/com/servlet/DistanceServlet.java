@@ -15,7 +15,7 @@ import com.dto.Ville;
 /**
  * Servlet implementation class DistanceServlet
  */
-@WebServlet("/DistanceServlet")
+@WebServlet("/Distance")
 public class DistanceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
