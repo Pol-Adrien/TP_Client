@@ -49,9 +49,11 @@ public class DistanceServlet extends HttpServlet {
 		}
 		double dist = distance(ville1, ville2);
 
-		sess.setAttribute("nomVille1", ville1.getNomCommune());
-		sess.setAttribute("nomVille2", ville2.getNomCommune());
-		sess.setAttribute("dist", dist);
+		if (ville1 != null && ville2 != null) {
+			sess.setAttribute("nomVille1", ville1.getNomCommune());
+			sess.setAttribute("nomVille2", ville2.getNomCommune());
+			sess.setAttribute("dist", dist);
+		}
 
 		RequestDispatcher dispat = request.getRequestDispatcher("distance.jsp");
 		dispat.forward(request, response);
@@ -73,9 +75,7 @@ public class DistanceServlet extends HttpServlet {
 			double a = Math.sin(distLat/2) * Math.sin(distLat/2) + Math.cos(lat1 * (Math.PI/180))
 					* Math.cos(lat2 * (Math.PI/180)) * Math.sin(distLong/2) * Math.sin(distLong/2);
 			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			double d = 6371 * c;
-
-			return d;
+			return 6371 * c;
 		}
 
 	}
